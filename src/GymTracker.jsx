@@ -100,8 +100,8 @@ export default function GymTracker() {
   useEffect(() => {
     (async () => {
       try {
-        const r = await window.storage.get("ironlog_v1");
-        if (r) setSessions(JSON.parse(r.value));
+        const r = localStorage.getItem("ironlog_v1");
+	if (r) setSessions(JSON.parse(r));
       } catch {}
       setLoading(false);
     })();
@@ -109,7 +109,7 @@ export default function GymTracker() {
 
   const persist = async (next) => {
     setSessions(next);
-    try { await window.storage.set("ironlog_v1", JSON.stringify(next)); } catch {}
+    try { localStorage.setItem("ironlog_v1", JSON.stringify(next)); } catch {}
   };
 
   const getLastWeight  = (id) => {
